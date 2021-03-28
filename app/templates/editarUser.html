@@ -10,9 +10,7 @@
 	<meta http-equiv='cache-control' content='no-cache'>
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
-	<title>Gráficos</title>
-
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<title>Edição</title>
 
 </head>
 <body>
@@ -54,53 +52,36 @@
 	</nav>
 	<br>
 	<div class="container">
-		<h2>Gráficos</h2>
-		<input type="hidden" id="salarioM" value="{{salarioM}}">
-		<input type="hidden" id="salarioF" value="{{salarioF}}">
-		<input type="hidden" id="idadeM" value="{{idadeM}}">
-		<input type="hidden" id="idadeF" value="{{idadeF}}">
-		<button type="button" class="btn btn-sm btn-primary" onclick="plot('bar')">
-			Faixa Etária
-		</button>
-		<button type="button" class="btn btn-sm btn-primary" onclick="plot('pie')">
-			Média Salarial
-		</button>
-		<br>
-		<br>
-		<center>
-			<div id="grafico" style="width: 800px; height: 400px;"></div>
-		</center>
-    </div>
+		<h2>Editar Usuário</h2>
+		<form class="ml-3" action="/salvar_edicao" method="POST" name="form_edicao" class="ml-3"> 
+            <input type="hidden" name="id" value="{{pessoa.id}}">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input class="form-control" type="text" name="nome" value="{{pessoa.nome}}">
+            </div>
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input class="form-control" type="number" name="idade" min="1" max="125" value="{{pessoa.idade}}">
+            </div>
+            <div  class="form-group">
+                <select class="form-control" name="sexo">
+                    <option value="M">Sexo: Masculino</option>
+                    <option value="F">Sexo: Femenino</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="salario">Salário:</label>
+                <input class="form-control" type="text" name="salario" value="{{pessoa.salario}}">
+            </div>
+
+            <a href="/listagem" class="btn btn-secondary" role="button">Cancelar</a>
+            <button type="submit" class="btn btn-success">Editar</button>
+        </form>
+	</div>
     <script>    
-        function plot(type='bar') {
-            type = type.toString().toLowerCase().trim();
+        const sexo = document.getElementsByName('sexo')[0];
+        sexo.value = "{{pessoa.sexo}}";
 
-            const salarioM = Number(document.getElementById('salarioM').value.replace(',','.'));
-            const salarioF = Number(document.getElementById('salarioF').value.replace(',','.'));
-           
-			const idadeM = Number(document.getElementById('idadeM').value.replace(',', '.'));
-			const idadeF = Number(document.getElementById('idadeF').value.replace(',', '.'));
-
-            let serie = {};
-            if (type =='pie'){
-                serie = {
-                    values: [salarioM,salarioF],
-                    labels: ['Masculino','Femenino'],
-                    type: type
-                };
-            }else {
-				serie = {
-					x: ['Masculino', 'Feminino'],
-					y: [idadeM, idadeF],
-					type: type
-				};				
-			}
-
-			const data = [serie];
-			Plotly.newPlot('grafico', data);			
-        }
-
-        plot();
     </script>
 </body>
 </html>

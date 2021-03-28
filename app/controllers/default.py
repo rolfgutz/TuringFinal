@@ -1,11 +1,77 @@
-from flask import render_template, request
+from flask import Flask, render_template, redirect, request, url_for, flash
 from app import app, db
-from app.models.tables import Pessoa
+from app.models.ModelPessoa import Pessoa
+from app.models.UsuarioSistemaModel import UsuarioSistema
+from flask_login import LoginManager, UserMixin, login_required,login_user, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
+login_manager = LoginManager(app)
 
+@login_manager.user_loader
+def current_user(user_id):
+    return UsuarioSistema.query.get(user_id)
+    
 @app.route('/')
-@app.route('/login')
+@app.route('/login',methods =['GET','POST'])
 def login():
-    return render_template('login.html')
+	if request.method == "POST":
+		email = request.form["email"]
+		password = request.form["password"]
+
+		usuario = UsuarioSistema.query.filter_by(email=email).first()
+
+		if not usuario:
+			flash("Usuário não cadastrado")
+			return redirect(url_for('login'))
+
+		if not check_password_hash (usuario.password,password):
+			flash("Senha inválida") 
+			return redirect(url_for('login'))
+
+		login_user(usuario)
+		return redirect(url_for('listagem'))
+
+	return render_template('login.html')
+
+
+@app.route('/register',methods = ['POST'])
+def register():
+	if request.method =='POST':
+		email =request.form['email']
+		password =generate_password_hash(request.form['password'])
+		nome =request.form['nome']
+		endereco =request.form['endereco']
+		cidade =request.form['cidade']
+		estado =request.form['estado']
+		cep =request.form['cep']
+		tipouser =request.form['tipouser']
+
+		novoUsuario = UsuarioSistema(nome,email,password,endereco,cidade,estado,cep,tipouser)
+
+		db.session.add(novoUsuario)
+		db.session.commit()
+
+		return redirect(url_for('listagem'))
+
+	return render_template('/register.html')
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return render_template("login.html")
+
+
+@app.route('/cadastroUser')
+def cadastroUsuario():
+    return render_template('cadastroUsuario.html')
+
+@app.route('/listarUsuarios')
+@login_required
+def listarUsuarios():
+	usuarios = UsuarioSistema.query.all()
+	return render_template('listagemUser.html', usuarios=usuarios, ordem='id')
+
 
 @app.route('/listagem')
 def listagem():
@@ -131,6 +197,7 @@ def salvar_delecao():
 	return render_template('listagem.html',pessoas= pessoas, ordem='id')
 	
 
+
 @app.route('/graficos')
 def graficos():
 	pessoasM = Pessoa.query.filter_by(sexo='M').all()
@@ -163,5 +230,3 @@ def graficos():
 	return render_template('graficos.html',
 							salarioM=salarioM,salarioF=salarioF,idadeM=IdadeM,idadeF=IdadeF)
 
-
-	

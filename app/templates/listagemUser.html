@@ -48,14 +48,14 @@
 				  <a class="dropdown-item" href="#">Receber Produto</a>
 				</div>
 			  </div>
-			  <div  class="col-sm-offset-10 col-sm-1">
+			  <li class="nav-item ">
 				<a class="nav-link"	href="/logout">Sair</a>
-			  </div>
+			</li>
 		</ul>
 	</nav>
 	<br>
-	<div class="container">
-		<h2>Desenvolvedores</h2>
+	<div class="container-fluid">
+		<h2>Usuários</h2>
 		<form action="consulta" method="POST" name="form_consulta" class="ml-3">
 			<div class="form-group col-md-12">
 				<div class="row">			
@@ -66,9 +66,8 @@
 					<div class="col-md-5">					
 						<select class="form-control col-md-6" name="campo">
 							<option value="nome">Nome</option>
-							<option value="idade">Idade</option>
-							<option value="sexo">Sexo</option>
-							<option value="salario">Salario</option>
+							<option value="email">Email</option>
+							<option value="tipouser">Tipo de Usuário</option>
 						</select>
 					</div>
 
@@ -85,27 +84,34 @@
 					<tr>
 						<th> <a href="/ordenacao/id/{{ordem}}">ID</a></th>
 						<th> <a href="/ordenacao/nome/{{ordem}}">Nome</a></th>
-						<th> <a href="/ordenacao/idade/{{ordem}}">Idade</a></th>
-						<th> <a href="/ordenacao/sexo/{{ordem}}">Sexo</a></th>
-						<th> <a href="/ordenacao/salario/{{ordem}}">Salario</a></th>
+						<th> <a href="/ordenacao/email/{{ordem}}">Email</a></th>
+						<th> <a href="/ordenacao/endereco/{{ordem}}">Endereço</a></th>
+						<th> <a href="/ordenacao/cidade/{{ordem}}">Cidade</a></th>
+						<th> <a href="/ordenacao/estado/{{ordem}}">Estado</a></th>
+						<th> <a href="/ordenacao/cep/{{ordem}}">Cep</a></th>
+						<th> <a href="/ordenacao/tipouser/{{ordem}}">Tipo de Usuário</a></th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for pessoa in pessoas %}
+					{% for usuario in usuarios %}
 						<tr>
 							<td nowrap="true"> 
-								<a href="/selecao/{{pessoa.id}}">{{pessoa.id}}</a>
+								<a href="/selecao/{{usuario.id}}">{{usuario.id}}</a>
 							</td>
-							<td nowrap="true">{{pessoa.nome}}</td>
-							<td nowrap="true">{{pessoa.idade}}</td>
-							<td nowrap="true">{{pessoa.sexo}}</td>
-							<td nowrap="true">{{pessoa.salario}}</td>
+							<td nowrap="true">{{usuario.nome}}</td>
+							<td nowrap="true">{{usuario.email}}</td>
+							<td nowrap="true">{{usuario.endereco}}</td>
+							<td nowrap="true">{{usuario.cidade}}</td>
+							<td nowrap="true">{{usuario.estado}}</td>
+							<td nowrap="true">{{usuario.estado}}</td>
+							<td nowrap="true">{{usuario.cep}}</td>
+							<td nowrap="true">{{usuario.tipouser}}</td>
 							<td>
-								<a href="/edicao/{{pessoa.id}}"
+								<a href="/edicao/{{usuario.id}}"
 								class="btn btn-primary" role="button">
-									Edicao
+									EDITAR
 								</a>
-								<a href="/delecao/{{pessoa.id}}"
+								<a href="/delecao/{{usuario.id}}"
 								class="btn btn-danger" role="button">
 									DELETAR
 								</a>
@@ -115,7 +121,7 @@
 				</tbody>
 			 </table>
 		</div>
-		<a href="#" style="float: right;" onclick="relatorio()">Imprimir Relatorio</a>
+		<!-- <a href="#" style="float: right;" onclick="relatorio()">Imprimir Relatorio</a>
 		<textarea id="dados" style="display: none;">
 			{% for pessoa in pessoas %}
 				{{pessoa.nome}}|{{pessoa.idade}}|{{pessoa.sexo}}|{{pessoa.salario}}#
@@ -144,7 +150,7 @@
 				doc.text(conteudo,30,30);
 				doc.save('Relatorio.pdf');
 			}
-		</script>
+		</script> -->
 	</div>
 </body>
 </html>
