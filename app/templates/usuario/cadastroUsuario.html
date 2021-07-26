@@ -1,0 +1,122 @@
+<title>Cadastro Usuario</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+{% include '/components/loginFailed.html' %}
+
+<div class="container" style="height: 90%; width: 100%;">
+	<h2 id="titulo-pags">Cadastrar Usuário</h2>
+	<form class="ml-3" action="/salvar_cadastro" method="POST" name="form_insercao" class="ml-3">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputEmail4">Email</label>
+				<input type="email" name="email" class="form-control" placeholder="Email">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputPassword4">Senha</label>
+				<input style="background-color: white;" type="password" name="password" class="form-control" placeholder="Senha">
+			</div>
+		</div>
+		<div class="form-row ">
+			<div class="form-group col-md-6">
+				<label for="inputAddress">Nome</label>
+				<input type="text" name="nome" class="form-control" placeholder="Nome Completo">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputAddress">Cpf</label>
+				<input type="text" id="CPF" name="cpf" class="form-control" min="11" max="14" placeholder="CPF">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputAddress2">Endereço</label>
+			<input type="text" name="endereco" class="form-control" placeholder="Apartamento, hotel, casa, etc.">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputCity">Cidade</label>
+				<input type="text" name="cidade" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputEstado">Estado</label>
+				<select name="estado" class="form-control">
+					<option>Acre (AC)</option>
+					<option>Alagoas (AL)</option>
+					<option>Amapá (AP)</option>
+					<option>Amazonas (AM)</option>
+					<option>Bahia (BA)</option>
+					<option>Ceará (CE)</option>
+					<option>Distrito Federal (DF)</option>
+					<option>Espírito Santo (ES)</option>
+					<option>Goiás (GO)</option>
+					<option>Maranhão (MA)</option>
+					<option>Mato Grosso (MT)</option>
+					<option>Mato Grosso do Sul (MS)</option>
+					<option>Minas Gerais (MG)</option>
+					<option>Pará (PA)</option>
+					<option>Paraíba (PB)</option>
+					<option>Paraná (PR)</option>
+					<option>Pernambuco (PE)</option>
+					<option>Piauí (PI)</option>
+					<option>Rio de Janeiro(RJ)</option>
+					<option>Rio Grande do Norte(RN)</option>
+					<option>Rio Grande do Sul (RS)</option>
+					<option>Rondônia (RO)</option>
+					<option>Roraima (RR)</option>
+					<option>Santa Catarina (SC)</option>
+					<option>São Paulo (SP)</option>
+					<option>Sergipe (SE)</option>
+					<option>Tocantins (TO)</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputCEP">CEP</label>
+				<input type="text" id="cep" name="cep" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputTipo">Tipo de Usuário</label>
+				<select name="tipoUsuario" class="form-control">
+					<option>Administrador</option>
+					<option>Funcionario</option>
+					<option>Cliente</option>
+				</select>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputEmpresa">Empresas</label>
+				<select name="id_empresa" class="form-control">
+					{% for empresa in empresas %}
+					<option value="{{empresa.id_empresa}}">
+						{{empresa.nome}}
+					</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+
+		<a href="/listarUsuarios" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+        <button type="submit" class="btn btn-success" id="botoes">Inserir</button>
+	</form>
+</div>
+
+<script>
+	$(document).ready(function () {
+		var $seuCampoCpf = $("#CPF");
+		$seuCampoCpf.mask('000.000.000-00');
+		var cep = $('#cep');
+		var $seuCampoCep = $("#cep");
+		$seuCampoCep.mask('00000-000');
+		
+	});
+
+
+	$(document).ready(function(){
+    $('.date').mask('00/00/0000');
+    $('.time').mask('00:00:00');
+    $('.cep').mask('00000-000');
+    $('.phone').mask('(00) 00000-0000');
+    $('.cpf').mask('000.000.000-00');
+    $('.money').mask('000.000.000.000,00');
+});
+
+</script>
+{% endblock %}

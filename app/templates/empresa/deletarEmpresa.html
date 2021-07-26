@@ -1,0 +1,61 @@
+<title>Deletar Empresa</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+    <div class="container">
+        <h2 id="titulo-pags">Deletar Empresa</h2>
+
+        <form class="ml-3" action="/saveDeletarEmpresa" method="POST" name="form_insercao" class="ml-3">
+            <input type="hidden" name="id_empresa" value="{{empresa.id_empresa}}">
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNome">Nome</label>
+                    <input type="text" name="nome" class="form-control" value="{{empresa.nome}}" disabled=true>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputCnpj">CNPJ</label>
+                    <input type="text" name="cnpj" class="form-control" value="{{empresa.cnpj}}" disabled=true>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputRazaosocial">Razão Social</label>
+                <input type="text" name="razao_social" class="form-control" value="{{empresa.razao_social}}" disabled=true>
+            </div>
+
+            <div class="form-group">
+                <label for="inputEndereco">Endereço</label>
+                <input type="text" name="endereco" class="form-control" value="{{empresa.endereco}}" disabled=true>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCidade">Cidade</label>
+                    <input type="text" name="cidade" class="form-control" value="{{empresa.cidade}}" disabled=true>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="inputEstado">Estado</label>
+                    <select name="estado" class="form-control" value="{{empresa.estado}}" disabled="true">
+                    </select>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="inputCEP">CEP</label>
+                    <input type="text" name="cep" class="form-control" value="{{empresa.cep}}" disabled="true">
+                </div>
+            </div>
+
+            <a href="/listarEmpresas" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+            <button type="submit" class="btn btn-danger" id="botoes">Deletar</button>
+        </form>
+    </div>
+
+	<script>
+        const estado = document.getElementsByName('estado')[0];
+        estado.value ="{{empresa.estado}}";
+	</script>
+{% endblock %}

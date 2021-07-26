@@ -1,0 +1,43 @@
+<title>Delecao</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+    <div class="container">
+		<h2 id="titulo-pags">Delecao</h2>
+
+		<form class="ml-3" action="/salvar_delecao" method="POST" name="form_delecao" class="ml-3">
+			<input type="hidden" name="id" value="{{pessoa.id}}">
+
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input class="form-control" type="text" name="nome" value="{{pessoa.nome}}" disabled="true">
+            </div>
+
+            <div class="form-group">
+                <label for="idade">Idade:</label>
+                <input class="form-control" type="number" name="idade" min="1" max="125" value="{{pessoa.idade}}" disabled="true">
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" name="sexo" disabled="true">
+                    <option value="M">Sexo: Masculino</option>
+                    <option value="F">Sexo: Feminino</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salário:</label>
+                <input class="form-control" type="text" name="salario" value="{{pessoa.salario}}" disabled="true">
+            </div>
+
+            <a href="/listagem" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+            <button type="submit" class="btn btn-danger" id="botoes">Deletar</button>
+        </form>
+	</div>
+
+    <script>
+        const sexo = document.getElementsByName('sexo')[0];
+        sexo.value = "{{pessoa.sexo}}";
+    </script>
+{% endblock %}

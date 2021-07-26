@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFFBE9;
+    font-family: "Comfortaa", cursive;
+}
+
+h3 {
+    font-family: "Comfortaa", cursive;
+}
+
+#card-login {
+    box-shadow: 4px 6px 8px 4px rgba(245, 12, 12, 0.2);
+}
+
+
+#card-login2 {
+    box-shadow: 4px 6px 8px 4px rgba(12, 245, 70, 0.2);
+}
+
+.login {
+    width: 320px;
+    height: 420px;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    color: #FFFFFF;
+    background-color: #3C2415;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    padding: 68px 28px;
+}
+
+.icone {
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: 112px;
+}
+
+h1 {
+    margin: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 20px;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 25px;
+}
+
+.login p {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.login input {
+    width: 100%;
+    margin-bottom: 21px;
+}
+
+.login input[type="text"], input[type="password"] {
+    border: none;
+    border-bottom: 1px solid #FFFFFF;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+#lembrar {
+    margin: 0;
+    padding: 10px;
+    width: 20px;
+    font-weight: bold;
+}
+
+.login input[type="submit"] {
+    margin-top: 16px;
+    border: none;
+    outline: none;
+    height: 35px;
+    color: #228B22;
+    background: #FFFFFF;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.login input[type="submit"]:hover {
+    cursor: pointer;
+    background: #228B22;
+    transition: 0.2s;
+    color: #FFFFFF;
+}
+
+.login a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: #3CB371;
+    transition: 0.2s;
+}
+
+.login a:hover {
+    transition: 0.2s;
+    color: #FFFFFF;
+}
+
+.error {
+    background-color: white;
+    color: red;
+    box-shadow: 4px 6px 8px 4px rgba(245, 12, 12, 0.2);
+}
+
+
+.sucess {
+    background-color: white;
+    color: green;
+    box-shadow: 4px 6px 8px 4px rgba(12, 245, 70, 0.2);
+}

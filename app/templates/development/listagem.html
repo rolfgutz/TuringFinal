@@ -1,0 +1,105 @@
+<title>Listagem</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+		<h2 id="titulo-pags">Listagem</h2>
+
+		<form action="consulta" method="POST" name="form_consulta" class="ml-3">
+			<div class=form-group>
+				<div class="row">
+					<input class="form-control col-md-5 mr-4" type="text" name="consulta" placeholder="Digite aqui sua consulta">
+					<select class="form-control col-md-2 mr-1" name="campo">
+						<option value="nome">Nome</option>
+						<option value="idade">Idade</option>
+						<option value="sexo">Sexo</option>
+						<option value="salario">Salário</option>
+					</select>
+					<button type="submit" class="btn btn-dark">Consultar</button>
+				</div>
+			</div>
+		</form>
+
+		<div>
+			<table id="dtBasicExample" class="table table-bordered table-sm">
+				<thead class="table-light">
+					<tr>
+						<!--
+						<th><a href="/ordenacao/id/{{ordem}}" class="table-format text-uppercase">Id</a></th>
+						<th><a href="/ordenacao/nome/{{ordem}}" class="table-format text-uppercase">Nome</a></th>
+						<th><a href="/ordenacao/idade/{{ordem}}" class="table-format text-uppercase">Idade</a></th>
+						<th><a href="/ordenacao/sexo/{{ordem}}" class="table-format text-uppercase">Sexo</a></th>
+						<th><a href="/ordenacao/salario/{{ordem}}" class="table-format text-uppercase">Salário</a></th>
+						<th><a href="#" class="table-format text-uppercase">Editar</a></th>
+						<th><a href="#" class="table-format text-uppercase">Deletar</a></th>
+						-->
+
+						<th nowrap="true" class="th-sm text-uppercase">Id</th>
+						<th nowrap="true" class="th-sm text-uppercase">Nome</th>
+						<th nowrap="true" class="th-sm text-uppercase">Idade</th>
+						<th nowrap="true" class="th-sm text-uppercase">Sexo</th>
+						<th nowrap="true" class="th-sm text-uppercase">Salário</th>
+						<th nowrap="true" class="th-sm text-uppercase">Editar</th>
+						<th nowrap="true" class="th-sm text-uppercase">Deletar</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for pessoa in pessoas %}
+						<tr>
+							<td>
+								<a href="/selecao/{{pessoa.id_pessoa}}" id="tableId">{{pessoa.id_pessoa}}</a>
+							</td>
+							<td>{{pessoa.nome}}</td>
+							<td>{{pessoa.idade}}</td>
+							<td>{{pessoa.sexo}}</td>
+							<td>{{pessoa.salario}}</td>
+							<td>
+								<a href="/edicao/{{pessoa.id_pessoa}}" class="btn btn-primary" role="button" id="botoes">
+									<img src="../static/icons/pencil-square.svg" alt="Editar">
+								</a>
+							</td>
+							<td>
+								<a href="/delecao/{{pessoa.id_pessoa}}" class="btn btn-danger" role="button" id="botoes">
+									<img src="../static/icons/trash.svg" alt="Deletar">
+								</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="#" style="float: right; color: #000;" onclick="relatorio()">Imprimir Relatorio</a>
+			<textarea id="dados" style="display: none;">
+				{% for pessoa in pessoas %}
+					{{pessoa.nome}}|{{pessoa.idade}}|{{pessoa.sexo}}|{{pessoa.salario}}#
+				{% endfor %}
+			</textarea>
+		</div>
+
+		<script>
+			function relatorio() {
+				const doc = new jsPDF({orientation:'landscape'});
+				const texto = document.getElementById('dados').innerText;
+				const arrLinhas = texto.split('#');
+				let conteudo = 'RELATORIO DE PESSOAS\n\n';
+
+				for (let linha = 0; linha<arrLinhas.length;linha++){
+					let arrColunas = arrLinhas[linha].split('|');
+					arrColunas[0] = arrColunas[0].trim().padEnd(35,'*')
+					if (arrColunas[0].indexOf('*')> 0 ){
+						conteudo += `NOME: ${arrColunas[0]} - `+
+									`IDADE: ${arrColunas[1]} - `+
+									`SEXO: ${arrColunas[2]} - `+
+									`SALARIO: R$ ${arrColunas[3]}\n`;
+					}
+				}
+				doc.setFontSize(12);
+				doc.setFont('Courier');
+				doc.text(conteudo,30,30);
+				doc.save('Relatorio.pdf');
+			}
+		</script>
+	</div>
+{% endblock %}

@@ -1,9 +1,20 @@
 pip install Flask
+pip install flask-login
 pip install flask-sqlalchemy
 pip install flask-migrate
 pip install flask-script
+pip install flask-script
+pip install plotly
 
 python run.py runserver
+
+db init inicial e cria a pasta migrations do banco 
 python run.py db init
+
+db migrate recria todos os tables encontrado no arquivo run py
 python run.py db migrate
+db run atualiza todas as tables 
 python run.py db upgrade
+
+para acessar o banco pelo terminal 
+flask shell 

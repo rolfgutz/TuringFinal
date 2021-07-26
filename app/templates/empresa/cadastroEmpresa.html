@@ -1,0 +1,94 @@
+<title>Cadastrar Empresa</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+<div class="container" style="height: 90%; width: 100%;">
+	<h2 id="titulo-pags">Cadastrar Empresa</h2>
+	<form class="ml-3" action="/salvar_empresa" method="POST" name="form_insercao" class="ml-3">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputNome">Nome</label>
+				<input type="text" name="nome" class="form-control" placeholder="Nome da Empresa">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="inputCnpj">CNPJ</label>
+				<input type="text" id="CNPJ" name="cnpj" class="form-control" placeholder="CNPJ">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputRazaosocial">Razão Social</label>
+			<input type="text" name="razao_social" class="form-control" placeholder="Razão Social">
+		</div>
+		<div class="form-group">
+			<label for="inputEndereco">Endereço</label>
+			<input type="text" name="endereco" class="form-control" placeholder="Apartamento, hotel, casa, etc.">
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="inputCidade">Cidade</label>
+				<input type="text" name="cidade" class="form-control">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputEstado">Estado</label>
+				<select name="estado" class="form-control">
+					<option>Acre (AC)</option>
+					<option>Alagoas (AL)</option>
+					<option>Amapá (AP)</option>
+					<option>Amazonas (AM)</option>
+					<option>Bahia (BA)</option>
+					<option>Ceará (CE)</option>
+					<option>Distrito Federal (DF)</option>
+					<option>Espírito Santo (ES)</option>
+					<option>Goiás (GO)</option>
+					<option>Maranhão (MA)</option>
+					<option>Mato Grosso (MT)</option>
+					<option>Mato Grosso do Sul (MS)</option>
+					<option>Minas Gerais (MG)</option>
+					<option>Pará (PA)</option>
+					<option>Paraíba (PB)</option>
+					<option>Paraná (PR)</option>
+					<option>Pernambuco (PE)</option>
+					<option>Piauí (PI)</option>
+					<option>Rio de Janeiro(RJ)</option>
+					<option>Rio Grande do Norte(RN)</option>
+					<option>Rio Grande do Sul (RS)</option>
+					<option>Rondônia (RO)</option>
+					<option>Roraima (RR)</option>
+					<option>Santa Catarina (SC)</option>
+					<option>São Paulo (SP)</option>
+					<option>Sergipe (SE)</option>
+					<option>Tocantins (TO)</option>
+				</select>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputCEP">CEP</label>
+				<input type="text" id="cep" name="cep" class="form-control">
+			</div>
+		</div>
+
+		<a href="/listarEmpresa" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+        <button type="submit" class="btn btn-success" id="botoes">Inserir</button>
+	</form>
+</div>
+
+<script>
+	$(document).ready(function () {
+		var $seuCampoCnpj = $("#CNPJ");
+		$seuCampoCnpj.mask('00.000.000/0000-00', { reverse: true })
+		var cep = $('#cep')
+		var $seuCampoCep = $("#cep");
+		$seuCampoCep.mask('00000-000');
+		
+	});
+
+	$(document).ready(function () {
+		$('.date').mask('00/00/0000');
+		$('.time').mask('00:00:00');
+		$('.cep').mask('00000-000');
+		$('.phone').mask('(00) 00000-0000');
+		$('.cpf').mask('000.000.000-00');
+		$('.money').mask('000.000.000.000,00');
+	});
+</script>
+{% endblock %}

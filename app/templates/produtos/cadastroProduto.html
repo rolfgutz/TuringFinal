@@ -1,0 +1,88 @@
+<title>Cadastrar Produto</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+		{% include '/components/loginFailed.html' %}
+
+		<h2 id="titulo-pags">Cadastrar Produto</h2>
+
+		<!-- action="/salvar_produto" -->
+		<!-- <form class="ml-3" method="POST" name="form_insercao" class="ml-3"> -->
+		<form class="ml-3" action="/salvar_produto" method="POST" name="form_insercao" class="ml-3">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label >Produto:</label>
+				<input type="text" id='nome' name="nome" class="form-control" placeholder="Nome do Produto">
+			</div>
+
+			<div class="form-group col-md-6">
+				<label for="inputEmpresa">Fornecedores:</label>
+				<select name="id_fornecedor" id='id_fornecedor' class="form-control">
+					{% for fornecedor in fornecedores %}
+						<option value="{{fornecedor.id_fornecedor}}">
+							{{fornecedor.nome}}
+						</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label>Kg:</label>
+				<input id="Kg" type="number" name="kg" class="form-control" placeholder="Quilos">
+			</div>
+
+			<div class="form-group col-md-6">
+				<label >Valor Kg:</label>
+				<input type="number" id="valor" name="valor" class="form-control" placeholder="Valor do Quilo"onchange="setTwoNumberDecimal" min="0" step="0.01" value="0.00">
+			</div>
+		</div>
+
+		<a href="/listarProdutos/1" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+		<button type="submit" class="btn btn-success" id="botoes" onclick="sendData()" class="btn btn-success" href="/listarProdutos/1">Inserir</button>
+	</div>
+</div>
+
+<script>
+	function setTwoNumberDecimal(event) {
+		this.value = parseFloat(this.value).toFixed(2);
+	}
+
+	// function sendData() {
+
+	// 	var kg = document.getElementById('Kg').value
+	// 	var e = document.getElementById('id_fornecedor')
+	// 	var id_fornecedor = e.options[e.selectedIndex].value
+	// 	var nome = document.getElementById('nome').value
+	// 	var valor = document.getElementById('valor').value
+
+
+		// $.ajax({
+		// 	url: "/salvar_produto",
+		// 	type: "POST",
+		// 	async: false,
+		// 	data: {
+		// 		kg: kg,
+		// 		id_fornecedor: id_fornecedor,
+		// 		nome: nome,
+		// 		valor: valor
+		// 	},
+		// 	success: function (response) {
+		// 		if (response.success === true) {
+		// 			window.location = '/listarProdutos'
+		// 		} else {
+		// 			alert('Por favor verifique o preenchimento dos campos conforme o modelo')
+		// 		}
+		// 	},
+		// 	error: function (response) {
+		// 		alert('Formulario invalido')
+		// 	}
+		// });
+	// }
+
+</script>
+
+{% endblock %}

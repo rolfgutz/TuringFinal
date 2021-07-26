@@ -1,0 +1,85 @@
+<title>Detalhes do Pedido</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+		<h2 id="titulo-pags">Editar Pedido</h2>
+
+		<form class="ml-3" action="/saveEditarPedido" method="POST" name="form_insercao" class="ml-3">
+			<input type="hidden" name="IdPedido" value="{{pedido.numeroPedido}}">
+
+			<table id="dtBasicExample" class="table table-bordered table-sm" cellspacing="0">
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase">Nome da Empresa</th>
+					<th nowrap="true" class="th-sm text-uppercase">Número Pedido</th>
+					<th nowrap="true" class="th-sm text-uppercase">Data do Pedido</th>
+				</tr>
+
+				<tr>
+					<td disable="true">{{pedido['razaoSocial']}}</td>
+					<td disable="true">{{pedido['numeroPedido']}}</td>
+					<td disable="true">{{pedido['DatadoPedido']}}</td>
+				</tr>
+
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase">Nota Fiscal</th>
+					<th nowrap="true" class="th-sm text-uppercase">Prazo de Pagamento</th>
+					<th nowrap="true" class="th-sm text-uppercase">Status de Pagamento</th>
+				</tr>
+
+				<tr>
+					<td disable="true">
+						<input type="text" value="{{pedido['NotaFiscal']}}" name="NotaFiscal" class="form-control">
+					</td>
+
+					<td disable="true">
+						<input type="text" value="{{pedido['prazoPagamento']}}" name="prazoPagamento" class="form-control">
+					</td>
+
+					<td disable="true">
+						{% if pedido['statusPagamento'] == "Cancelado" %}
+							<select disabled="true" name="status" id="status" class="form-control">
+								<option value="2">Cancelado</option>
+							</select>
+						{% else:%}
+							<select name="status" id="status" class="form-control">
+								<option value="0">Em Aberto</option>
+								<option value="1">Pago</option>
+								<option value="2">Cancelado</option>
+							</select>
+						{% endif %}
+					</td>
+				</tr>
+
+				<th colspan="3">Observação </th>
+				<tr>
+					<td colspan="3">
+						<input type="text" value="{{pedido['observacao']}}" name="observacao" class="form-control">
+					</td>
+				</tr>
+
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase">Nome Produto</th>
+					<th nowrap="true" class="th-sm text-uppercase">Quantidade em Quilos</th>
+					<th nowrap="true" class="th-sm text-uppercase">Valor por Produto</th>
+				</tr>
+
+				{% set qtdProdutos = pedido['produtos'] |length %}
+
+				{% for index in range(qtdProdutos) %}
+					<tr>
+						<td disable="true"> {{pedido['produtos'][index]['nome']}} </td>
+						<td disable="true"> {{pedido['produtos'][index]['quantidade']}}</td>
+						<td disable="true"> {{pedido['produtos'][index]['produtoValor']}} </td>
+					</tr>
+				{% endfor %}
+			</table>
+
+			<a href="/gerenciarPedidos/1" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+			{% if not pedido['statusPagamento'] == "Cancelado" %}
+				<button type="submit" class="btn btn-primary" id="botoes">Salvar</button>
+			{% endif %}
+		</form>
+	</div>
+{% endblock %}

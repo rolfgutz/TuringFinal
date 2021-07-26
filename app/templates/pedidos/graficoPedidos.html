@@ -1,0 +1,81 @@
+<title>Gráfico de Pedidos</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+<div class="container" style="height: 90%; width: 300%;">
+	<h2 id="titulo-pags">Gráfico de Pedidos</h2>
+	<input type="hidden" id="janeiro" value="{{janeiro}}">
+	<input type="hidden" id="fevereiro" value="{{fevereiro}}">
+	<input type="hidden" id="marco" value="{{marco}}">
+	<input type="hidden" id="abril" value="{{abril}}">
+	<input type="hidden" id="maio" value="{{maio}}">
+	<input type="hidden" id="junho" value="{{junho}}">
+	<input type="hidden" id="julho" value="{{julho}}">
+	<input type="hidden" id="agosto" value="{{agosto}}">
+	<input type="hidden" id="setembro" value="{{setembro}}">
+	<input type="hidden" id="novembro" value="{{novembro}}">
+	<input type="hidden" id="outubro" value="{{outubro}}">
+	<input type="hidden" id="dezembro" value="{{dezembro}}">
+
+	<input type="hidden" id="aberto" value="{{aberto}}">
+	<input type="hidden" id="pago" value="{{pago}}">
+	<input type="hidden" id="cancelado" value="{{cancelado}}">
+
+	<button type="button" class="btn btn-sm btn-primary" onclick="plot('bar')">
+		Vendas Mensal
+	</button>
+	<button type="button" class="btn btn-sm btn-primary" onclick="plot('pie')">
+		Situação de Pagamento
+	</button>
+	<br>
+	<br>
+	<center>
+		<div id="graficoPedido" style="width: 800px; height: 400px;"></div>
+	</center>
+</div>
+
+<script>
+	function plot(type = 'bar') {
+		type = type.toString().toLowerCase().trim();
+
+		const janeiro = Number(document.getElementById('janeiro').value.replace(',', '.'));
+		const fevereiro = Number(document.getElementById('fevereiro').value.replace(',', '.'));
+		const marco = Number(document.getElementById('marco').value.replace(',', '.'));
+		const abril = Number(document.getElementById('abril').value.replace(',', '.'));
+		const maio = Number(document.getElementById('maio').value.replace(',', '.'));
+		const junho = Number(document.getElementById('junho').value.replace(',', '.'));
+		const julho = Number(document.getElementById('julho').value.replace(',', '.'));
+		const agosto = Number(document.getElementById('agosto').value.replace(',', '.'));
+		const setembro = Number(document.getElementById('setembro').value.replace(',', '.'));
+		const novembro = Number(document.getElementById('novembro').value.replace(',', '.'));
+		const outubro = Number(document.getElementById('outubro').value.replace(',', '.'));
+		const dezembro = Number(document.getElementById('dezembro').value.replace(',', '.'));
+
+	
+		const aberto = Number(document.getElementById('aberto').value.replace(',', '.'));
+		const pago = Number(document.getElementById('pago').value.replace(',', '.'));
+		const cancelado = Number(document.getElementById('cancelado').value.replace(',', '.'));
+
+		let serie = {};
+		if (type == 'pie') {
+			serie = {
+				values: [aberto,pago,cancelado ],
+				labels: ['Em Aberto', 'Pago', 'Cancelado'],
+				type: type
+			};
+		} else {
+			serie = {
+				x: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Novembro', 'Outubro', 'Dezembro'],
+				y: [janeiro, fevereiro, marco, abril, maio, junho, julho, agosto, setembro, novembro, outubro, dezembro],
+				type: type
+			};
+		}
+
+		const data = [serie];
+		Plotly.newPlot('graficoPedido', data);
+	}
+
+	plot();
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+<title>Início</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+    <div class="card bg-dark text-white" style="height: 95%;">
+        <img src="../static/img/graos.jpg" class="card-img" alt="Imagem Grão">
+        <div class="card-img-overlay text-center" id="card_over">
+            <h1 class="card-title" id="card_over_txt">OS MELHORES GRÃOS</h1>
+            <p class="card-text" id="card_over_txt">Produtos naturais cuidadosamente selecionados!</p>
+            <a href="/selecionarProdutos/1" class="btn btn-dark btn-lg" id="btn_img">Comprar agora</a>
+        </div>
+    </div>
+
+    <div class="container text-center" id="div_icons">
+        <div class="row">
+            <div class="col" id="borda_icons">
+                <img src="../static/icons/credit-card.svg" alt="Pagamento" width="32" height="32">
+                Pagamento em até 365 dias
+            </div>
+
+            <div class="col" id="borda_icons">
+                <img src="../static/icons/truck.svg" alt="Entrega" width="32" height="32">
+                Entrega expressa
+            </div>
+
+            <div class="col">
+                <img src="../static/icons/check-square.svg" alt="Site" width="32" height="32">
+                Compra segura
+            </div>
+        </div>
+    </div>
+{% endblock %}

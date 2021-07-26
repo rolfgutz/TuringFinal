@@ -1,0 +1,138 @@
+<title>Detalhes do Pedido</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+		<h2 id="titulo-pags">Detalhes do Pedido</h2>
+
+		<form class="ml-3" class="ml-3">
+			<input type="hidden" name="IdPedido" value="{{pedido.numeroPedido}}">
+
+			<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0">
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Nome da Empresa</th>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">CNPJ</th>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Número Pedido</th>
+					<th nowrap="true"class="th-sm text-uppercase" disable="true">Data do Pedido</th>
+				</tr>
+
+				<tr>
+					<td id="nmEmpresa" disable="true">{{pedido['razaoSocial']}}</td>
+					<td id="cnpj" disable="true">{{pedido['cnpj']}}</td>
+					<td id="nrPedido" disable="true">{{pedido['numeroPedido']}}</td>
+					<td id="dtPedido" disable="true">{{pedido['DatadoPedido']}}</td>
+				</tr>
+
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Usuário</th>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Nota Fiscal</th>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Prazo de Pagamento</th>
+					<th nowrap="true" class="th-sm text-uppercase" disable="true">Status de Pagamento</th>
+				</tr>
+
+				<tr>
+					<td id="usuario" disable="true">
+						{{pedido['NomeUsuario']}}
+					</td>
+					<td disable="true">
+						{{pedido['NotaFiscal']}}
+					</td>
+					<td disable="true">
+						{{pedido['prazoPagamento']}}
+					</td>
+					<td id="statusPedido" disable="true">
+						{{pedido['statusPagamento']}}
+					</td>
+				</tr>
+
+				<th colspan="4">Observação</th>
+				<tr>
+					<td colspan="4" disable="true">
+						<span class="form-control"> {{pedido['observacao']}} </span>
+					</td>
+				</tr>
+
+				<tr>
+					<th nowrap="true" class="th-sm text-uppercase">Nome Produto</th>
+					<th nowrap="true" class="th-sm text-uppercase">Quantidade em Quilos</th>
+					<th nowrap="true" class="th-sm text-uppercase">Valor por Produto</th>
+					<th nowrap="true" class="th-sm text-uppercase">Sub Total</th>
+				</tr>
+
+				{% set qtdProdutos = pedido['produtos'] |length %}
+
+				{% for index in range(qtdProdutos) %}
+					<tr>
+						<td disable="true"> {{pedido['produtos'][index]['nome']}} </td>
+						<td disable="true"> {{pedido['produtos'][index]['quantidade']}}</td>
+						<td disable="true"> {{pedido['produtos'][index]['produtoValor']}} </td>
+						<td disable="true"> {{pedido['produtos'][index]['valorProdutos']}} </td>
+					</tr>
+				{% endfor %}
+			</table>
+
+			<div>
+				<h3 id="totaPedido"> TOTAL: {{pedido['ValorTotalPedido']}}</h3>
+			</div>
+
+			<a href="#" style="float: right; color: #000;" onclick="relatorio()">Imprimir Relatorio</a>
+
+			<textarea id="detalhesPedido" style="display: none;">
+				{% set qtdProdutos = pedido['produtos'] |length %}
+				{% for index in range(qtdProdutos) %}
+					{{pedido['produtos'][index]['nome']}}|{{pedido['produtos'][index]['quantidade']}}|{{pedido['produtos'][index]['produtoValor']}}|{{pedido['produtos'][index]['valorProdutos']}}#
+				{% endfor %}
+			</textarea>
+		</form>
+		<div class="container">
+			<a href="/gerenciarPedidos/1" class="btn btn-secondary" role="button" id="botoes">Voltar</a>
+		</div>
+	</div>
+
+	<script>
+		function relatorio() {
+			const doc = new jsPDF({orientation:'portrait'});
+			const texto = document.getElementById('detalhesPedido').innerText.trim();
+			const arrLinhas = texto.split('#');
+			let conteudo = 'DETALHES DO PEDIDO\n\n';
+			let nmEmpresa = document.getElementById('nmEmpresa').innerText;
+			let nrPedido = document.getElementById('nrPedido').innerText;
+			let dtPedido = document.getElementById('dtPedido').innerText;
+			let cnpj = document.getElementById('cnpj').innerText;
+			let dtPedido1 = new Date(dtPedido)
+			let dataFormatada = ((dtPedido1.getDate()+ 1 )) + "/" + ((dtPedido1.getMonth() + 1)) + "/" + dtPedido1.getFullYear(); 
+			let valorTotalpedido = document.getElementById('totaPedido').innerText;
+			let usuario = document.getElementById('usuario').innerText;
+			let status = document.getElementById('statusPedido').innerText;
+			let espaco = ''.padStart(38)
+
+			conteudo += `Nome da Empresa: ${nmEmpresa} - `+
+						`CNPJ: ${cnpj}  \n`+
+						`Número Pedido: ${nrPedido} - `+
+						`Data Do Pedido: R$  ${dtPedido}\n` +
+						`Pedido Realizado: ${usuario} \n` +
+						`Situação do Pedido: ${status}\n\n\n\n`;
+
+			conteudo += `PRODUTOS: \n`
+
+			for (let linha = 0; linha<arrLinhas.length;linha++){
+				let arrColunas = arrLinhas[linha].split('|');
+				arrColunas[0] = arrColunas[0].trim().padEnd(45,'*')
+				if (arrColunas[0].indexOf('*')> 0 ){	
+					conteudo += `Nome Produto: ${arrColunas[0]}\n`+
+								`Quantidade em Quilos: ${arrColunas[1]} - `+
+								`Valor por Produto: R$  ${arrColunas[2]}\n`+
+								`${espaco}Sub Total:${arrColunas[3]}\n\n`;
+								
+				}
+			}
+			conteudo+= `${valorTotalpedido.padStart(60)}`
+			
+			doc.setFontSize(12);
+			doc.setFont('Courier');
+			doc.text(conteudo,20,20);
+			doc.save('Relatorio.pdf');
+		}
+	</script>
+{% endblock %}

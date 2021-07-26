@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="../static/icons/favicon/favicon.ico"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Roboto+Condensed&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+	    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/css/layout.css">
+		<!-- <link rel="stylesheet" type="text/css" href="../static/css/login.css"> -->
+		<meta http-equiv='cache-control' content='no-cache'>
+		<meta http-equiv='expires' content='0'>
+		<meta http-equiv='pragma' content='no-cache'>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" crossorigin="anonymous"></script>
+		
+		<style>
+			.display {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark" id="navb">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="/inicio">
+					<img src="../static/img/grao_nav.png" alt="Logo Grão" id="img_nav">
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mt-1 mb-lg-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="/inicio">
+								Início
+							</a>
+						</li>
+						<li class="nav-item dropdown" id="LiUsuario">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Usuário
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/cadastrarUsuario">Cadastrar Usuário</a>
+								<a class="dropdown-item" href="/listarUsuarios">Listar Usuários</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown" id="LiProduto">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Estoque
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/cadastrarProduto">Cadastrar Produto</a>
+								<a class="dropdown-item" href="/listarProdutos/1">Listar Produtos</a>
+							</div>
+						</li>	
+						<li class="nav-item dropdown" id="LiEmpresa">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Empresa</a> 
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/cadastrarEmpresa">Cadastrar Empresa</a>
+								<a class="dropdown-item" href="/listarEmpresa">Listar Empresas</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown" id="LiFornecedor" aria-disabled="true">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Fornecedor
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/cadastrarFornecedor">Cadastrar Fornecedor</a>
+								<a class="dropdown-item" href="/listarFornecedor">Listar Fornecedores</a>
+							</div>
+						</li>	
+						<li class="nav-item dropdown" id="'LiPedidos'">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								Realizar Pedido
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/selecionarProdutos/1">Realizar Pedido</a>
+								<a class="dropdown-item" href="/listarPedidos/1">Listar Pedidos</a>
+							</div>
+						</li>
+						<li class="nav-item dropdown" id="LiGerenciamentoPedidos">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								Gerenciar Pedidos
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="/gerenciarPedidos/1">Gerenciar Pedidos</a>
+								<a class="dropdown-item" href="/graficoPedidos/">Graficos Pedidos</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<form class="form-inline my-2 my-lg-0">
+					<a href="/logout" class="btn btn-outline-light my-2 my-sm-0" role="button" aria-pressed="true">Sair</a>
+				</form>
+			</div>
+		</nav>
+
+		<section>
+			<div class="container-fluid" style="height: 100%; padding-left: 0px; padding-right: 0px;">
+				{% block rolf %}
+				{% endblock %}
+			</div>
+		</section>
+
+		<footer class="text-center mt-4">
+            <div class="container">
+                <div class="row mb-4 mt-4">
+                    <div class="col">
+                    <h6>E-mail:</h6>
+                    <a href="#" id="email">contato@grao.com.br</a>
+                    </div>
+                    <div class="col">
+                    <h6>CNPJ:</h6>
+                        88.123.123/0001-88
+                    </div>
+                    <div class="col">
+                    <h6>Telefone:</h6>
+                        (11) 4002-8922
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                    <h6>Horário de Funcionamento:</h6>
+                        Segunda à sexta: 9:00 às 18:00
+                    </div>
+                </div>
+            </div>
+        </footer>
+	</body>
+
+	<script>
+		function changeMenu () {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", '/login/menu', true);
+				// Envia a informação do cabeçalho junto com a requisição.
+			
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+			xhr.onreadystatechange = function() { // Chama a função quando o estado mudar.
+				if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+					var data = JSON.parse(this.responseText)
+					if  (data.tipoUsuario === 'Administrador') {
+						HidenMenuAdmn();
+					} else if( data.tipoUsuario === 'Cliente'){
+						HidenMenuClient();
+					} else {
+						HidenMenuFuncio();
+					}
+				}
+			}
+			xhr.send();
+			// xhr.send(new Int8Array());
+			// xhr.send(document);
+		}
+
+		function HidenMenuClient () {
+			document.getElementById('LiFornecedor').classList.add('display');
+			document.getElementById('LiEmpresa').classList.add('display');
+			document.getElementById('LiProduto').classList.add('display');
+			document.getElementById('LiGerenciamentoPedidos').classList.add('display');
+		}
+
+		function HidenMenuFuncio () {
+			document.getElementById('LiFornecedor').classList.add('display');
+			document.getElementById('LiEmpresa').classList.add('display');
+			document.getElementById('LiProduto').classList.add('display');
+			document.getElementById('LiUsuario').classList.add('display');
+			document.getElementById('LiGerenciamentoPedidos').classList.add('display');
+
+		}
+
+		function HidenMenuAdmn() {
+			return
+		}
+
+		changeMenu();
+	</script>
+</html>

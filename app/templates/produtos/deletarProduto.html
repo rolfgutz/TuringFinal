@@ -1,0 +1,74 @@
+<title>Deletar Produto</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+	{% include '/components/loginFailed.html' %}
+
+		<h2 id="titulo-pags">Deletar Produto</h2>
+
+		<form class="ml-3" action="/saveDeleteProduto" method="POST" name="form_insercao" class="ml-3">
+			<input type="hidden" name="idProduto" value="{{produto.idProduto}}">
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Produto</label>
+					<input type="text" name="nome" class="form-control" value="{{produto.nome}}" disabled="True">
+				</div>
+
+				<div class="form-group col-md-6" >
+					<label for="inputEmpresa">Fornecedores</label>
+					<select name="id_fornecedor" class="form-control" disabled="True">
+						{% for fornecedor in fornecedores %}
+							<option value="{{fornecedor.id_fornecedor}}">
+								{{fornecedor.nome}}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label>Kg</label>
+					<input type="text" name="kg" class="form-control" value="{{produto.kg}}" disabled="True">
+				</div>
+
+				<div class="form-group col-md-6">
+					<label >Valor:</label>
+					<input type="text" name="valor" min="1"  id="money" class="form-control" value="{{produto.valor}}"  step='0.01'  disabled="True">
+				</div>
+			</div>
+			<a href="/listarProdutos/1" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+			<button type="submit" class="btn btn-danger" id="botoes">Deletar</button>
+
+		</div>
+		</form>
+	</div>
+		
+<script>
+	$(document).ready(function () {
+		var $seuCampoCpf = $("#CPF");
+		$seuCampoCpf.mask('000.000.000-00');
+		var cep = $('#cep');
+		var $seuCampoCep = $("#cep");
+		$seuCampoCep.mask('00000-000');
+		var money = $('#money');
+		var $seuCampoMoney = $("#money");
+		$seuCampoMoney.mask('R$ 000.000.000.000,00');
+		
+	});
+
+
+	$(document).ready(function(){
+    $('.date').mask('00/00/0000');
+    $('.time').mask('00:00:00');
+    $('.cep').mask('00000-000');
+    $('.phone').mask('(00) 00000-0000');
+    $('.cpf').mask('000.000.000-00');
+    $('.money').mask('R$ 000.000.000.000,00');
+});
+
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+
+<title>Cadastrar Fornecedor</title>
+
+{% extends "layout.html" %}
+
+{% block rolf %}
+	<div class="container">
+		{% include '/components/loginFailed.html' %}
+
+		<h2 id="titulo-pags">Cadastrar Fornecedor</h2>
+
+		<form class="ml-3" action="/salvarFornecedor" method="POST" name="form_insercao" class="ml-3">
+			<div class="form-group">
+				<label for="inputNome">Nome</label>
+				<input type="text" name="nome" class="form-control" placeholder="Nome do Fornecedor">
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputCnpj">CNPJ</label>
+					<input type="text" name="cnpj" class="form-control" min="14" max="18" placeholder="CNPJ">
+				</div>
+
+				<div class="form-group col-md-6">
+					<label for="inputRazaosocial">Razão Social</label>
+					<input type="text" name="razao_social" class="form-control" placeholder="Razão Social">
+                </div>
+
+			</div>
+			<a href="/listarFornecedor" class="btn btn-warning text-white" role="button" id="botoes">Cancelar</a>
+			<button type="submit" class="btn btn-success" id="botoes">Inserir</button>
+
+		</div>
+
+
+		</form>
+	</div>
+{% endblock %}
